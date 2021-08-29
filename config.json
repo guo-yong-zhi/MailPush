@@ -1,0 +1,10 @@
+{
+    "host": "outlook.office365.com",
+    "user": "mykindlemail@outlook.com",
+    "password": "abc123",
+    "mailbox": "INBOX",
+    "criteria": ["UNSEEN"],
+    "days": 7,
+    "maxnum": 2,
+    "downloaddir": "download"
+}

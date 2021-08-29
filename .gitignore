@@ -1,0 +1,5 @@
+download
+.ipynb_checkpoints
+__pycache__
+*.ipynb
+config.json
