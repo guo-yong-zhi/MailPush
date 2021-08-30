@@ -1,0 +1,42 @@
+# MailPush
+这是个用于Kindle的自定义邮箱推送的`KUAL`插件，功能类似于亚马逊的`Send-to-Kindle`但是并不依赖于在亚马逊官方注册的kindle邮箱。在使用本插件前请确保你已经把设备越狱而且安装了`KUAL`和`Python3`。当然，由于本插件主体基于`Python3`的标准库完成，因此`src`文件夹里的程序实际上是跨平台的，可以运行于任何安装了`Python3`的操作系统和平台。
+## 特点
+* 支持通过邮件附件推送文件
+* 支持通过在邮件正文里填写文件下载链接推送文件。这有时更方便而且可以突破邮箱的文件大小的限制
+* 支持以压缩包的方式推送，插件会自动完成解压，支持zip, tar, gztar, bztar, xztar等格式
+* 支持在邮件主题里指定文件的保存文件名或路径
+* 不同于亚马逊官方服务，我们没有“已认可的发件人”或其它白名单的概念，任何邮箱都可以向你推送文件
+* 不同于亚马逊官方服务，我们支持推送任意格式的文件到任意目录（不限于图书），插件不会进行检测，除了压缩包解压也不会进行任何格式转换  
+
+这里可能会有一些安全隐患，所以你最好申请一个名称相对复杂的邮箱而且不要把它告诉太多人。另外，可以在`config.json`文件中为`root`参数设置一个路径，邮件推送的文件将不允许下载到`root`目录及其子目录之外的地方，`root`默认为Kindle磁盘根目录。
+## 安装
+1. 前往[发布页面](https://github.com/guo-yong-zhi/MailPush/releases)下载压缩包，并解压到你电脑的任意目录下
+2. 在解压目录中`MailPush/src`文件夹里找到`config.json`文件并编辑
+   * 将`user`改为你自己的邮箱。建议为kindle单独申请一个，不要混用
+   * 将`password`改为你的邮箱密码。因为是明文存储，注意不要泄漏这个文件给他人
+   * 将`host`、`port`改为你邮箱服务商的IMAP host和prot。可以参考文末的对照表
+   * 其它参数按需修改。`downloaddir`为默认下载路径；`days`为下载几天内的邮件；`maxnum`为一次最多下载几封邮件
+3. 把`MailPush`文件夹拷贝到你Kindle设备根目录下的`extensions`目录中
+4. 根据你邮箱服务商的要求在邮箱管理页面打开`IMAP`服务的开关。不同邮箱方法不同，如`outlook`邮箱就默认IMAP服务开启，所以不需要此步
+## 使用方法
+1. 用其它邮箱向你填在`user`的邮箱发邮件
+   * 可以选择添加任何附件
+   * 正文部分可以为空或者填写一个或多个下载链接，多个链接空格或换行分开，不要填写其它内容或分隔符
+   * 主题部分可以为空或者通过`filename:`关键字指定一个或多个下载到Kindle中的路径或文件名，多个文件名用`,`隔开。缺省路径在`downloaddir`里配置，默认是`/mnt/us/documents/downloadss`。格式如：
+      > * `filename: abc.pdf` #意为第一个文件保存到 /mnt/us/documents/downloads/abc.pdf
+      > * `filename: books/abc.mobi` #意为第一个文件保存到 /mnt/us/documents/downloads/books/abc.mobi
+      > * `filename: /mnt/us/123.epub` #意为第一个文件保存到 /mnt/us/123.epub
+      > * `filename: abc.pdf, def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/downloads/def.pdf
+2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`
+## 附：常见邮箱类型和host对照表
+|邮箱类型|host|port|
+|----|----|----|
+|gmail|imap.gmail.com|993|
+|yahoo|imap.mail.yahoo.com|993|
+|outlook|imap-mail.outlook.com|993|
+|hotmail|outlook.office365.com|993|
+|qq|imap.qq.com|993|
+|126|imap.126.com|993|
+|163|imap.163.com|993|
+|yeah|imap.yeah.net|993|
+|sina|imap.sina.com|993|

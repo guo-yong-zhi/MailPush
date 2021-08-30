@@ -3,10 +3,10 @@ import datetime
 from email.header import decode_header
 from email.utils import parseaddr
 
-
 def fetch_mails(host,
                 user,
                 password,
+                port=993,
                 mailbox='INBOX',
                 criteria=('UNSEEN',),
                 days=7,
@@ -17,7 +17,8 @@ def fetch_mails(host,
         criteria = [] if criteria.strip() == "" else [criteria]
     days = int(days)
     maxnum = int(maxnum)
-    connection = imaplib.IMAP4_SSL(host)
+    port = int(port)
+    connection = imaplib.IMAP4_SSL(host, port)
     connection.login(user, password)
     typ, data = connection.select(mailbox)
     num_msgs = int(data[0])
