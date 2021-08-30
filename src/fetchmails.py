@@ -9,13 +9,13 @@ def fetch_mails(host,
                 port=993,
                 mailbox='INBOX',
                 criteria=('UNSEEN',),
-                days=7,
+                maxage=7,
                 maxnum=10
                 ):
 
     if isinstance(criteria, str):
         criteria = [] if criteria.strip() == "" else [criteria]
-    days = int(days)
+    maxage = int(maxage)
     maxnum = int(maxnum)
     port = int(port)
     connection = imaplib.IMAP4_SSL(host, port)
@@ -24,11 +24,11 @@ def fetch_mails(host,
     num_msgs = int(data[0])
     print('{}, There are {} emails in {}'.format(typ, num_msgs, mailbox))
     sincedate = (datetime.date.today() -
-                 datetime.timedelta(days)).strftime("%d-%b-%Y")
+                 datetime.timedelta(maxage)).strftime("%d-%b-%Y")
     typ, data = connection.search(None, 'SINCE', sincedate, *criteria)
     ids = data[0].split()
     print("{}, There are {} {} emails in the past {} days".format(
-        typ, len(ids), " ".join(criteria), days))
+        typ, len(ids), " ".join(criteria), maxage))
     if len(ids) > maxnum:
         print("keep", maxnum, 'emails')
         ids = ids[-maxnum:]

@@ -5,7 +5,7 @@
     "port": 993,
     "mailbox": "INBOX",
     "criteria": ["UNSEEN"],
-    "days": 7,
+    "maxage": 7,
     "maxnum": 5,
     "downloaddir": "/mnt/us/documents/downloads",
     "root": "/mnt/us/"

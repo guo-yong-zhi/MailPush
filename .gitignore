@@ -1,5 +1,6 @@
 download*
 .ipynb_checkpoints
+.vscode
 __pycache__
 *.ipynb
 src/config.json

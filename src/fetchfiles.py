@@ -84,6 +84,7 @@ def try_append_filenames(filenames, line):
 def fetch_files(downloaddir="download", root="", **kargs):
     global Root
     Root = root
+    files = []
     for msg_data in fetch_mails(**kargs):
         msg = email.message_from_bytes(msg_data[0][1])
         header = get_header(msg)
@@ -95,7 +96,9 @@ def fetch_files(downloaddir="download", root="", **kargs):
         filenames = []
         try_append_filenames(filenames, subject)
         nf = 0
-        if try_unpack(trywget(subject, downloaddir, filenames[nf] if nf < len(filenames) else "")):
+        file = try_unpack(trywget(subject, downloaddir, filenames[nf] if nf < len(filenames) else ""))
+        if file:
+            files.append(file)
             nf += 1
         for tp, content in get_contents(msg):
             lines = content.splitlines()
@@ -103,9 +106,13 @@ def fetch_files(downloaddir="download", root="", **kargs):
                 try_append_filenames(filenames, l)
             for l in lines:
                 for ll in l.split():
-                    if try_unpack(trywget(ll, downloaddir, filenames[nf] if nf < len(filenames) else "")):
+                    file = try_unpack(trywget(ll, downloaddir, filenames[nf] if nf < len(filenames) else ""))
+                    if file:
+                        files.append(file)
                         nf += 1
         for filename, data in get_files(msg):
             fn = filenames[nf] if nf < len(filenames) else ""
-            try_unpack(savetofile(data, filename, downloaddir, fn))
+            file = try_unpack(savetofile(data, filename, downloaddir, fn))
+            files.append(file)
             nf += 1
+    return files
