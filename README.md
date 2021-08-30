@@ -17,7 +17,7 @@
    * 将`host`、`port`改为你邮箱服务商的IMAP host和prot。可以参考文末的对照表
    * 其它参数按需修改。`downloaddir`为默认下载路径；`maxage`为下载几天内的邮件；`maxnum`为一次最多下载几封邮件
 3. 通过USB把`MailPush`文件夹拷贝到你Kindle设备根目录下的`extensions`目录中
-4. 根据你邮箱服务商的要求在邮箱管理页面打开`IMAP`服务的开关。不同邮箱方法不同，如`outlook`邮箱就默认IMAP服务开启，所以不需要此步
+4. 根据你邮箱服务商的要求在邮箱管理页面打开`IMAP`服务的开关。不同邮箱方法不同，如`outlook`邮箱默认开启IMAP服务，所以不需要此步；而新注册的QQ邮箱需要14天后才能开启IMAP服务
 ## 使用方法
 1. 用其它邮箱向你填在`user`的邮箱发邮件
    * 可以选择添加任何附件
@@ -27,7 +27,8 @@
       > * `saveto: books/` #意为第一个文件保存到 /mnt/us/documents/downloads/books/ 中，文件名不变
       > * `saveto: /mnt/us/123.epub` #意为第一个文件保存到 /mnt/us/123.epub
       > * `saveto: abc.pdf, def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/downloads/def.pdf
-2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`。选择相应功能可以获取未读或最新的邮件中的文件。运行日志会保存在`extensions/MailPush/`中`log.txt`和`result.txt`以供查看。
+2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`。选择相应功能可以获取未读或最新的邮件中的文件。运行日志会保存在`extensions/MailPush/`中`log.txt`和`result.txt`以供查看。如果装有插件`Leafpad`，也可以通过菜单按钮打开查看。
+3. 点击下载后，如果屏幕上方长时间跳动`Fetching...`以及`log.txt`长时间为空白而不报错，可能是邮箱服务器不稳定的原因，可以换用国内邮箱
 ## 附：常见邮箱类型和host对照表
 |邮箱类型|host|port|
 |----|----|----|

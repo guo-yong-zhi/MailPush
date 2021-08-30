@@ -2,8 +2,9 @@ import os
 import re
 import requests
 import email
-from fetchmails import fetch_mails, get_header, get_files, get_contents
 import shutil
+import datetime
+from fetchmails import fetch_mails, get_header, get_files, get_contents
 
 Root = ""
 def filepath(fn, path=""):
@@ -87,13 +88,13 @@ def fetch_files(downloaddir="download", root="", **kargs):
     Root = root
     files = []
     for msg_data in fetch_mails(**kargs):
-        print("*", datetime.datetime.now().strftime(" %Y-%m-%d %H:%M:%S "))
+        print("**", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         msg = email.message_from_bytes(msg_data[0][1])
         header = get_header(msg)
-        print("*"*20)
+        print("*"*22)
         print(
             "\n".join((a+b for a, b in zip(['* From: ', '* To: ', '* Subject: '], header))))
-        print("*"*20)
+        print("*"*22)
         subject = header[-1]
         filenames = []
         try_append_filenames(filenames, subject)

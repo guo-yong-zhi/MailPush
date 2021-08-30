@@ -33,6 +33,20 @@
 					"priority": 5,
 					"action": "./main.sh python3 src/main.py >log.txt 2>&1",
 					"param": ""
+				},
+                {
+					"name": "Show result",
+					"priority": 6,
+					"action": "../leafpad/bin/leafpad result.txt",
+					"param": "",
+					"exitmenu": false
+				},
+                {
+					"name": "Show log",
+					"priority": 6,
+					"action": "../leafpad/bin/leafpad log.txt",
+					"param": "",
+					"exitmenu": false
 				}
 			]
 		}

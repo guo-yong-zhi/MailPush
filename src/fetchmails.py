@@ -12,7 +12,6 @@ def fetch_mails(host,
                 maxage=7,
                 maxnum=10
                 ):
-
     if isinstance(criteria, str):
         criteria = [] if criteria.strip() == "" else [criteria]
     maxage = int(maxage)
@@ -20,6 +19,7 @@ def fetch_mails(host,
     port = int(port)
     connection = imaplib.IMAP4_SSL(host, port)
     connection.login(user, password)
+    print("*", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S,"), "login")
     typ, data = connection.select(mailbox)
     num_msgs = int(data[0])
     print('{}, There are {} emails in {}'.format(typ, num_msgs, mailbox))
