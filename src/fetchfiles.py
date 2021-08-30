@@ -6,16 +6,21 @@ from fetchmails import fetch_mails, get_header, get_files, get_contents
 import shutil
 
 Root = ""
-def filepath(path, fn):
+def filepath(fn, path=""):
     p = os.path.join(path, fn)
     if not p.startswith(Root):
-        fn = os.path.basename(fn)
-        p = os.path.join(path, fn)
+        print(p, "is out of", Root)
+        p = os.path.join(Root, os.path.basename(fn))
     n = 1
+    p0 = p
     while os.path.exists(p):
-        p = os.path.join(path, fn+"(%s)" % n)
+        if os.path.isfile(p):
+            bn, ext = os.path.splitext(p0)
+        else:
+            bn, ext = p0, ""
+        p = "%s(%s)%s"%(bn, n, ext)
         n += 1
-    os.makedirs(path, exist_ok=True)
+    os.makedirs(os.path.dirname(p), exist_ok=True)
     return p
 
 
@@ -34,8 +39,10 @@ def trywget(url, path, fn):
 def wget(url, path, fn):
     chunk_size = 1024*1024
     res = requests.get(url, stream=True)
-    fn = fn if fn else os.path.basename(url)
-    filename = filepath(path, fn)
+    fn = fn.strip()
+    if fn == "" or fn.endswith("/") or fn.endswith("\\"):
+        fn = os.path.join(fn, os.path.basename(url))
+    filename = filepath(fn, path)
     print("- URL Found: %s." % url, 'Save it to', filename)
     with open(filename, "wb") as f:
         for chunk in res.iter_content(chunk_size=chunk_size):
@@ -45,24 +52,36 @@ def wget(url, path, fn):
 
 
 def savetofile(data, filename, path, fn):
-    fn = fn if fn else filename
-    fn = filepath(path, fn)
+    fn = fn.strip()
+    if fn == "" or fn.endswith("/") or fn.endswith("\\"):
+        fn = os.path.join(fn, filename)
+    fn = filepath(fn, path)
     f = open(fn, 'wb')
     f.write(data)
     f.close()
     print("- Attachment File Found: %s." % filename, 'Save it to', fn)
     return fn
 
+
 def try_unpack(fn):
     if os.path.splitext(fn)[1][1:] in [f[0] for f in shutil.get_archive_formats()]:
         try:
-            shutil.unpack_archive(fn, os.path.dirname(fn))
-            print("Unpack", fn)
+            dst = filepath(os.path.splitext(fn)[0])
+            shutil.unpack_archive(fn, dst)
+            print("Unpack", fn, "to", dst)
+            os.remove(fn)
         except Exception as e:
             print(e)
     return fn
 
-def fetch_books(downloaddir="download", root="", **kargs):
+
+def try_append_filenames(filenames, line):
+    if line.strip().startswith("saveto:"):
+        line = line.split(":")[1]
+        filenames.extend((f.strip() for f in line.split(",")))
+
+
+def fetch_files(downloaddir="download", root="", **kargs):
     global Root
     Root = root
     for msg_data in fetch_mails(**kargs):
@@ -73,20 +92,20 @@ def fetch_books(downloaddir="download", root="", **kargs):
             "\n".join((a+b for a, b in zip(['* From: ', '* To: ', '* Subject: '], header))))
         print("*"*20)
         subject = header[-1]
-        filenames = [""]
-        if subject.startswith("filename:"):
-            filenames = subject.split(":")[1]
-            filenames = [f.strip() for f in filenames.split(",")]
+        filenames = []
+        try_append_filenames(filenames, subject)
         nf = 0
-        maxn = len(filenames) - 1
-        if try_unpack(trywget(header[-1], downloaddir, "" if nf > maxn else filenames[nf])):
+        if try_unpack(trywget(subject, downloaddir, filenames[nf] if nf < len(filenames) else "")):
             nf += 1
         for tp, content in get_contents(msg):
-            lines = content.split()
+            lines = content.splitlines()
             for l in lines:
-                if try_unpack(trywget(l, downloaddir, "" if nf > maxn else filenames[nf])):
-                    nf += 1
+                try_append_filenames(filenames, l)
+            for l in lines:
+                for ll in l.split():
+                    if try_unpack(trywget(ll, downloaddir, filenames[nf] if nf < len(filenames) else "")):
+                        nf += 1
         for filename, data in get_files(msg):
-            fn = "" if nf > maxn else filenames[nf]
+            fn = filenames[nf] if nf < len(filenames) else ""
             try_unpack(savetofile(data, filename, downloaddir, fn))
             nf += 1

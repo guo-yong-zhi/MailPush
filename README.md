@@ -1,5 +1,5 @@
 # MailPush
-这是个用于Kindle的自定义邮箱推送的`KUAL`插件，功能类似于亚马逊的`Send-to-Kindle`但是并不依赖于在亚马逊官方注册的kindle邮箱。在使用本插件前请确保你已经把设备越狱而且安装了`KUAL`和`Python3`。当然，由于本插件主体基于`Python3`的标准库完成，因此`src`文件夹里的程序实际上是跨平台的，可以运行于任何安装了`Python3`的操作系统和平台。
+这是个用于Kindle的邮箱推送的`KUAL`插件，功能类似于亚马逊的`Send-to-Kindle`但是可以使用任何邮箱，并不依赖于在亚马逊官方注册的Kindle邮箱。在使用本插件前请确保你已经把设备越狱而且安装了`KUAL`和`Python3`。当然，由于本插件主体基于`Python3`的标准库完成，因此`src`文件夹里的程序实际上是跨平台的，可以运行于任何安装了`Python3`的操作系统和平台。
 ## 特点
 * 支持通过邮件附件推送文件
 * 支持通过在邮件正文里填写文件下载链接推送文件。这有时更方便而且可以突破邮箱的文件大小的限制
@@ -12,7 +12,7 @@
 ## 安装
 1. 前往[发布页面](https://github.com/guo-yong-zhi/MailPush/releases)下载压缩包，并解压到你电脑的任意目录下
 2. 在解压目录中`MailPush/src`文件夹里找到`config.json`文件并编辑
-   * 将`user`改为你自己的邮箱。建议为kindle单独申请一个，不要混用
+   * 将`user`改为你自己的邮箱。建议为此单独申请一个邮箱，不要混用
    * 将`password`改为你的邮箱密码。因为是明文存储，注意不要泄漏这个文件给他人
    * 将`host`、`port`改为你邮箱服务商的IMAP host和prot。可以参考文末的对照表
    * 其它参数按需修改。`downloaddir`为默认下载路径；`days`为下载几天内的邮件；`maxnum`为一次最多下载几封邮件
@@ -21,12 +21,12 @@
 ## 使用方法
 1. 用其它邮箱向你填在`user`的邮箱发邮件
    * 可以选择添加任何附件
-   * 正文部分可以为空或者填写一个或多个下载链接，多个链接空格或换行分开，不要填写其它内容或分隔符
-   * 主题部分可以为空或者通过`filename:`关键字指定一个或多个下载到Kindle中的路径或文件名，多个文件名用`,`隔开。缺省路径在`downloaddir`里配置，默认是`/mnt/us/documents/downloadss`。格式如：
-      > * `filename: abc.pdf` #意为第一个文件保存到 /mnt/us/documents/downloads/abc.pdf
-      > * `filename: books/abc.mobi` #意为第一个文件保存到 /mnt/us/documents/downloads/books/abc.mobi
-      > * `filename: /mnt/us/123.epub` #意为第一个文件保存到 /mnt/us/123.epub
-      > * `filename: abc.pdf, def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/downloads/def.pdf
+   * 主题部分或正文部分的每一行可以是文件下载链接，多个链接空格或换行分开，不要填写其它内容或分隔符
+   * 主题部分或正文部分的每一行可以通过`saveto:`关键字指定下载到Kindle中的路径或文件名，多个文件名用`,`隔开。缺省路径通过参数`downloaddir`配置，默认是`/mnt/us/documents/downloads`。格式如：
+      > * `saveto: abc.pdf` #意为第一个文件保存到 /mnt/us/documents/downloads/abc.pdf
+      > * `saveto: books/` #意为第一个文件保存到 /mnt/us/documents/downloads/books/ 中，文件名不变
+      > * `saveto: /mnt/us/123.epub` #意为第一个文件保存到 /mnt/us/123.epub
+      > * `saveto: abc.pdf, def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/downloads/def.pdf
 2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`
 ## 附：常见邮箱类型和host对照表
 |邮箱类型|host|port|
