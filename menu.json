@@ -7,31 +7,31 @@
 				{
 					"name": "Fetch unseen messages in recent 2 days",
 					"priority": 1,
-					"action": "./main.sh python3 src/main.py --criteria UNSEEN --maxage 2 --maxnum 100 >log.txt 2>&1",
+					"action": "./mailpush.sh python3 src/mailpush.py --criteria UNSEEN --maxage 2 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
 				{
 					"name": "Fetch unseen messages in recent 30 days",
 					"priority": 2,
-					"action": "./main.sh python3 src/main.py --criteria UNSEEN --maxage 30 --maxnum 100 >log.txt 2>&1",
+					"action": "./mailpush.sh python3 src/mailpush.py --criteria UNSEEN --maxage 30 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
                 {
 					"name": "Fetch the latest 1 message in recent 7 days",
 					"priority": 3,
-					"action": "./main.sh python3 src/main.py --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
+					"action": "./mailpush.sh python3 src/mailpush.py --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
                 {
 					"name": "Fetch the latest 5 messages in recent 60 days",
 					"priority": 4,
-					"action": "./main.sh python3 src/main.py --criteria ' ' --maxage 60 --maxnum 5 >log.txt 2>&1",
+					"action": "./mailpush.sh python3 src/mailpush.py --criteria ' ' --maxage 60 --maxnum 5 >log.txt 2>&1",
 					"param": ""
 				},
                 {
 					"name": "Fetch messages wifh config.json",
 					"priority": 5,
-					"action": "./main.sh python3 src/main.py >log.txt 2>&1",
+					"action": "./mailpush.sh python3 src/mailpush.py >log.txt 2>&1",
 					"param": ""
 				},
                 {
@@ -45,6 +45,13 @@
 					"name": "Show log",
 					"priority": 6,
 					"action": "../leafpad/bin/leafpad log.txt",
+					"param": "",
+					"exitmenu": false
+				},
+                {
+					"name": "Stop",
+					"priority": 7,
+					"action": "ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {}",
 					"param": "",
 					"exitmenu": false
 				}
