@@ -27,7 +27,7 @@
       > * `saveto: books/` #意为第一个文件保存到 /mnt/us/documents/downloads/books/ 中，文件名不变
       > * `saveto: /mnt/us/123.epub` #意为第一个文件保存到 /mnt/us/123.epub
       > * `saveto: abc.pdf, def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/downloads/def.pdf
-2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`
+2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`。选择相应功能可以获取未读或最新的邮件中的文件。运行日志会保存在`extensions/MailPush/`中`log.txt`和`result.txt`以供查看。
 ## 附：常见邮箱类型和host对照表
 |邮箱类型|host|port|
 |----|----|----|

@@ -70,6 +70,7 @@ def try_unpack(fn):
             shutil.unpack_archive(fn, dst)
             print("Unpack", fn, "to", dst)
             os.remove(fn)
+            fn = dst
         except Exception as e:
             print(e)
     return fn
@@ -86,6 +87,7 @@ def fetch_files(downloaddir="download", root="", **kargs):
     Root = root
     files = []
     for msg_data in fetch_mails(**kargs):
+        print("*", datetime.datetime.now().strftime(" %Y-%m-%d %H:%M:%S "))
         msg = email.message_from_bytes(msg_data[0][1])
         header = get_header(msg)
         print("*"*20)
