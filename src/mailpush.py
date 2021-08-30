@@ -20,7 +20,7 @@ args = vars(args)
 
 config.update(args)
 files = fetch_files(**config)
-resultfile.write("%d files doloaded"%len(files))
+resultfile.write("%d files downloaded"%len(files))
 resultfile.write("\n")
 for f in files:
     resultfile.write("* %s"%f)

@@ -34,6 +34,7 @@ def fetch_mails(host,
         ids = ids[-maxnum:]
     for i in ids:
         typ, msg_data = connection.fetch(i, '(RFC822)')
+        connection.store(i,'+FLAGS','\\seen')
         yield msg_data
 
 # https://www.jianshu.com/p/544a35bc8c92

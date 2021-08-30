@@ -1,7 +1,8 @@
 #!/bin/sh
 
+touch runningflag
 #show status
-while :; do
+while [ -f runningflag ]; do
     eips 30 1 "Fetching.            "
     sleep 1
     eips 30 1 "Fetching..           "
@@ -23,7 +24,7 @@ if [ 0 -eq `lipc-get-prop com.lab126.cmd wirelessEnable` ]; then
     CONNECTED=0                  # whether we are currently connected
     while [ 0 -eq $CONNECTED ]; do
     	# test whether we can ping outside
-    	/bin/ping -c 1 -w 2 $TEST_DOMAIN > /dev/null && CONNECTED=1
+    	/bin/ping -c 1 -w 2 $TEST_DOMAIN > /dev/null 2>&1 && CONNECTED=1
     	# if we can't, checkout timeout or sleep for 1s
     	if [ 0 -eq $CONNECTED ]; then
     		TIMER=$(($TIMER-1))
@@ -42,18 +43,37 @@ if [ 0 -eq `lipc-get-prop com.lab126.cmd wirelessEnable` ]; then
     fi
 fi
 
-#run the main task from arguments
-"$@"
-code=$?
+if :; then
+    #run the main task from arguments
+    "$@"
+    code=$?
 
-#show result
-if [ 0 -eq $code ]; then
-    msg="Operation success    "
-else
-    msg="Operation failed     "
+    rm -f runningflag
+    #show result
+    if [ 0 -eq $code ]; then
+        msg="Operation success    "
+    else
+        msg="Operation failed     "
+    fi
+    sleep 5
+    eips 30 1 "$msg" > /dev/null
+
+fi &
+
+TIMER=600     # number of seconds to attempt a connection
+while [ -f runningflag ]; do
+    TIMER=$(($TIMER-1))
+	if [ 0 -eq $TIMER ]; then
+		logger "No internet connection after ${NETWORK_TIMEOUT} seconds, aborting."
+		break
+	fi
+	sleep 1
+done
+sleep 6
+kill $(jobs -p) > /dev/null 2>&1
+if [ -f runningflag  ]; then
+    eips 30 1 "Time out, aborting   " > /dev/null
 fi
-kill $(jobs -p)
-eips 30 1 "$msg" > /dev/null
 
 # Restore WiFi status
 if [ 1 -eq $WIFI_IS_OFF ]; then
@@ -62,3 +82,4 @@ if [ 1 -eq $WIFI_IS_OFF ]; then
     sleep 1
     eips 30 3 "                              " > /dev/null
 fi
+ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {} > /dev/null

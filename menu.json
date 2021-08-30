@@ -23,6 +23,12 @@
 					"param": ""
 				},
                 {
+					"name": "Fetch the latest 3 message in recent 30 days",
+					"priority": 3,
+					"action": "./mailpush.sh python3 src/mailpush.py --criteria ' ' --maxage 30 --maxnum 3 >log.txt 2>&1",
+					"param": ""
+				},
+                {
 					"name": "Fetch the latest 5 messages in recent 60 days",
 					"priority": 4,
 					"action": "./mailpush.sh python3 src/mailpush.py --criteria ' ' --maxage 60 --maxnum 5 >log.txt 2>&1",
@@ -49,7 +55,7 @@
 					"exitmenu": false
 				},
                 {
-					"name": "Stop",
+					"name": "Kill",
 					"priority": 7,
 					"action": "ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {}",
 					"param": "",
