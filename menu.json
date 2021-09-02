@@ -5,58 +5,70 @@
 			"priority": 0,
 			"items": [
 				{
-					"name": "Fetch unseen messages in recent 2 days",
+					"name": "Fetch unseen mails in recent 2 days",
 					"priority": 1,
 					"action": "./mailpush.sh python3 src/mailpush.py --criteria UNSEEN --maxage 2 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
 				{
-					"name": "Fetch unseen messages in recent 30 days",
+					"name": "Fetch unseen mails in recent 30 days",
 					"priority": 2,
 					"action": "./mailpush.sh python3 src/mailpush.py --criteria UNSEEN --maxage 30 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
-                {
-					"name": "Fetch the latest 1 message in recent 7 days",
+				{
+					"name": "Fetch unseen junk mails in recent 2 days",
 					"priority": 3,
+					"action": "./mailpush.sh python3 src/mailpush.py --mailbox JUNK --criteria UNSEEN --maxage 2 --maxnum 100 >log.txt 2>&1",
+					"param": ""
+				},
+                {
+					"name": "Fetch the latest 1 mail in recent 7 days",
+					"priority": 4,
 					"action": "./mailpush.sh python3 src/mailpush.py --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch the latest 3 message in recent 30 days",
-					"priority": 3,
+					"name": "Fetch the latest 3 mails in recent 30 days",
+					"priority": 5,
 					"action": "./mailpush.sh python3 src/mailpush.py --criteria ' ' --maxage 30 --maxnum 3 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch the latest 5 messages in recent 60 days",
-					"priority": 4,
+					"name": "Fetch the latest 5 mails in recent 60 days",
+					"priority": 6,
 					"action": "./mailpush.sh python3 src/mailpush.py --criteria ' ' --maxage 60 --maxnum 5 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch messages wifh config.json",
-					"priority": 5,
+					"name": "Fetch the latest 1 junk mail in recent 7 days",
+					"priority": 7,
+					"action": "./mailpush.sh python3 src/mailpush.py --mailbox JUNK --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
+					"param": ""
+				},
+                {
+					"name": "Fetch mails wifh config.json",
+					"priority": 8,
 					"action": "./mailpush.sh python3 src/mailpush.py >log.txt 2>&1",
 					"param": ""
 				},
                 {
 					"name": "Show result",
-					"priority": 6,
+					"priority": 9,
 					"action": "../leafpad/bin/leafpad result.txt",
 					"param": "",
 					"exitmenu": false
 				},
                 {
 					"name": "Show log",
-					"priority": 6,
+					"priority": 10,
 					"action": "../leafpad/bin/leafpad log.txt",
 					"param": "",
 					"exitmenu": false
 				},
                 {
 					"name": "Kill",
-					"priority": 7,
+					"priority": 11,
 					"action": "ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {}",
 					"param": "",
 					"exitmenu": false
