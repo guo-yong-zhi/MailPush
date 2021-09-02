@@ -21,14 +21,15 @@
 ## 使用方法
 1. 用其它邮箱向你填在`user`的邮箱发邮件
    * 可以选择添加任何附件
-   * 主题部分或正文部分的每一行可以是文件下载链接，多个链接空格或换行分开，不要填写其它内容或分隔符
-   * 主题部分或正文部分的每一行可以通过`saveto:`关键字指定下载到Kindle中的路径或文件名，多个文件名用`,`隔开。缺省路径通过参数`downloaddir`配置，默认是`/mnt/us/documents/downloads`。格式如：
-      > * `saveto: abc.pdf` #意为第一个文件保存到 /mnt/us/documents/downloads/abc.pdf
-      > * `saveto: books/` #意为第一个文件保存到 /mnt/us/documents/downloads/books/ 中，文件名不变
-      > * `saveto: /mnt/us/123.epub` #意为第一个文件保存到 /mnt/us/123.epub
-      > * `saveto: abc.pdf, def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/downloads/def.pdf
-2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`。选择相应功能可以获取未读或最新的邮件中的文件。运行日志会保存在`extensions/MailPush/`中`log.txt`和`result.txt`以供查看。如果装有插件`Leafpad`，也可以通过菜单按钮打开查看。
-3. 点击下载后，如果屏幕上方长时间跳动`Fetching...`以及`log.txt`长时间为空白而不报错，可能是邮箱服务器不稳定的原因，如果你使用的是国外邮箱服务，可以尝试换用国内的
+   * 主题部分或正文部分的一行可以是文件下载链接，多个链接用空格或`|`隔开，或者分别用`<`和`>`框住，但不支持逗号或分号分隔
+   * 主题部分或正文部分的一行可以以`saveto`关键字开头，用以指定下载到Kindle中的路径或文件名，多个文件名用`,`、`;`或`|`隔开，或者分别用`<`和`>`框住，不可以用空格分隔。缺省路径通过参数`downloaddir`配置，默认是`/mnt/us/documents/downloads`。格式如：
+      > * `saveto abc.pdf` #意为第一个文件保存到 /mnt/us/documents/downloads/abc.pdf
+      > * `saveto books/` #意为第一个文件保存到 /mnt/us/documents/downloads/books/ 中，文件名不变
+      > * `saveto /mnt/us/123.epub` #意为第一个文件保存到 /mnt/us/123.epub
+      > * `saveto abc.pdf, def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/downloads/def.pdf
+2. 在Kindle打开KUAL，可以在菜单中找到`MailPush`。点击`Fetch unseen mails`系列可以获取未读，或点击`Fetch the latest mails`系列可以获取最新邮件中的文件。运行日志会保存在`extensions/MailPush/`中`log.txt`和`result.txt`以供查看。如果装有插件`Leafpad`，也可以通过菜单按钮打开查看。
+3. 点击下载后，如果屏幕上方长时间跳动`Fetching...`或提示了`Time out`，可能是网络不稳定的原因，如果你使用的是国外邮箱服务，可以尝试换用国内的
+4. 如果操作成功却没有下载到文件，请先检查`result.txt`中是否有下载文件及路径，如果确实没有下载可以点击`Fetch unseen junk mails`或`Fetch the latest 1 junk mail`尝试在垃圾邮件中寻找
 ## 附：常见邮箱类型和host对照表
 |邮箱类型|host|port|
 |----|----|----|

@@ -78,9 +78,11 @@ def try_unpack(fn):
 
 
 def try_append_filenames(filenames, line):
-    if line.strip().startswith("saveto:"):
-        line = line.split(":")[1]
-        filenames.extend((f.strip() for f in line.split(",")))
+    line = line.strip()
+    if line.startswith("saveto"):
+        ts = filter(None, re.split('[:,;，；|"<>]', line))
+        if next(ts) == "saveto":
+            filenames.extend(ts)
 
 
 def fetch_files(downloaddir="download", root="", **kargs):
@@ -108,7 +110,7 @@ def fetch_files(downloaddir="download", root="", **kargs):
             for l in lines:
                 try_append_filenames(filenames, l)
             for l in lines:
-                for ll in l.split():
+                for ll in filter(None, re.split("[<>\s|]", l)):
                     file = try_unpack(trywget(ll, downloaddir, filenames[nf] if nf < len(filenames) else ""))
                     if file:
                         files.append(file)
