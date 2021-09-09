@@ -90,14 +90,14 @@ def fetch_files(downloaddir="download", root="", **kargs):
     Root = root
     files = []
     for msg_data in fetch_mails(**kargs):
-        print("**", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        print("\n**", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"**")
         msg = email.message_from_bytes(msg_data[0][1])
         header = get_header(msg)
-        print("*"*22)
+        print("*"*25)
         print(
-            "\n".join((a+b for a, b in zip(['* From: ', '* To: ', '* Subject: '], header))))
-        print("*"*22)
-        subject = header[-1]
+            "\n".join((a+str(b) for a, b in zip(['* From: ', '* To: ', '* Subject: '], header))))
+        print("*"*25)
+        subject = str(header[-1])
         filenames = []
         try_append_filenames(filenames, subject)
         nf = 0
@@ -115,6 +115,8 @@ def fetch_files(downloaddir="download", root="", **kargs):
                     if file:
                         files.append(file)
                         nf += 1
+                    else:
+                        break
         for filename, data in get_files(msg):
             fn = filenames[nf] if nf < len(filenames) else ""
             file = try_unpack(savetofile(data, filename, downloaddir, fn))
