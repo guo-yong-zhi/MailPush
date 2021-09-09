@@ -9,7 +9,7 @@ from fetchmails import fetch_mails, get_header, get_files, get_contents
 Root = ""
 def filepath(fn, path=""):
     p = os.path.join(path, fn)
-    if not p.startswith(Root):
+    if not os.path.abspath(p).startswith(os.path.abspath(Root)):
         print(p, "is out of", Root)
         p = os.path.join(Root, os.path.basename(fn))
     n = 1
@@ -80,9 +80,8 @@ def try_unpack(fn):
 def try_append_filenames(filenames, line):
     line = line.strip()
     if line.startswith("saveto"):
-        ts = filter(None, re.split('[:,;，；|"<>]', line))
-        if next(ts) == "saveto":
-            filenames.extend(ts)
+        ts = filter(None, re.split('[,;，；|"<>]', line[6:]))
+        filenames.extend(ts)
 
 
 def fetch_files(downloaddir="download", root="", **kargs):
