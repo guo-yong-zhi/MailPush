@@ -80,8 +80,8 @@ def try_unpack(fn):
 def try_append_filenames(filenames, line):
     line = line.strip()
     if line.startswith("saveto"):
-        ts = filter(None, re.split('[,;，；|"<>]', line[6:]))
-        filenames.extend(ts)
+        ts = filter(None, re.split('[|<>]', line[7:]))
+        filenames.extend(t.strip() for t in ts if t)
 
 
 def fetch_files(downloaddir="download", root="", **kargs):
