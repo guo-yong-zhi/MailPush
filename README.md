@@ -14,7 +14,7 @@
 2. 在解压目录中`MailPush/src`文件夹里找到`config.json`文件并编辑
    * 将`user`改为你自己的邮箱。建议为此单独申请一个邮箱，不要混用
    * 将`password`改为你的邮箱密码。因为是明文存储，注意不要泄漏这个文件给他人
-   * 将`host`、`port`改为你邮箱服务商的IMAP host和prot。可以参考文末的对照表
+   * 将`host`、`port`改为你邮箱服务商的IMAP host和port。可以参考文末的对照表
    * 其它参数按需修改。`downloaddir`为默认下载路径；`maxage`为下载几天内的邮件；`maxnum`为一次最多下载几封邮件
 3. 通过USB把`MailPush`文件夹拷贝到你Kindle设备根目录下的`extensions`目录中
 4. 根据你邮箱服务商的要求在邮箱管理页面打开`IMAP`服务的开关。不同邮箱方法不同，如outlook邮箱默认开启IMAP服务，所以不需要此步；而新注册的QQ邮箱需要14天后才能开启IMAP服务
