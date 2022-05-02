@@ -7,7 +7,7 @@ import datetime
 from fetchmails import fetch_mails, get_header, get_files, get_contents
 
 Root = ""
-def filepath(fn, path=""):
+def filepath_(fn, path=""):
     p = os.path.join(path, fn)
     if not os.path.abspath(p).startswith(os.path.abspath(Root)):
         print(p, "is out of", Root)
@@ -21,9 +21,25 @@ def filepath(fn, path=""):
             bn, ext = p0, ""
         p = "%s(%s)%s"%(bn, n, ext)
         n += 1
+    return p
+def filepath(fn, path=""):
+    try:
+        p = filepath_(fn, path)
+        open(p, 'wb').close()
+    except Exception as e:
+        try:
+            print(e)
+            p2 = filepath_("mailpush_saved_file", path)
+            print(p, "is illegal. Try filename:", p2)
+            p = p2
+            open(p, 'wb').close()
+        except Exception as e:
+            print(e)
+            p2 = filepath_("mailpush_saved_file", Root)
+            print(p, "is illegal. Try filename:", p2)
+            p = p2
     os.makedirs(os.path.dirname(p), exist_ok=True)
     return p
-
 
 def trywget(url, path, fn):
     try:
