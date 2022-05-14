@@ -21,6 +21,7 @@ def filepath_(fn, path=""):
             bn, ext = p0, ""
         p = "%s(%s)%s"%(bn, n, ext)
         n += 1
+    os.makedirs(os.path.dirname(p), exist_ok=True)
     return p
 def filepath(fn, path=""):
     try:
@@ -38,7 +39,6 @@ def filepath(fn, path=""):
             p2 = filepath_("mailpush_saved_file", Root)
             print(p, "is illegal. Try filename:", p2)
             p = p2
-    os.makedirs(os.path.dirname(p), exist_ok=True)
     return p
 
 def trywget(url, path, fn):
