@@ -1,4 +1,6 @@
 # MailPush
+For English users, there is a nice [post](https://www.reddit.com/r/kindle/comments/uvp41l/howto_email_kfx_books_from_calibre_to_a/).  
+
 这是个Kindle的`KUAL`插件，实现了邮箱推送功能，类似于亚马逊的`Send-to-Kindle`，但是并不依赖于在亚马逊官方注册的Kindle邮箱，可以使用任何邮箱。在使用本插件前请确保你已经把设备越狱而且安装了[`KUAL`和`Python3`](https://www.mobileread.com/forums/showthread.php?t=225030)。当然，由于本插件主体基于`Python3`的标准库完成，因此`src`文件夹里的程序实际上是跨平台的，可以运行于任何安装了`Python3`的操作系统和平台。
 ## 特点
 * 支持通过邮件附件推送文件
