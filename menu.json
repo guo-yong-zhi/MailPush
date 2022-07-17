@@ -53,16 +53,16 @@
 					"param": ""
 				},
                 {
-					"name": "Show result",
+					"name": "View results",
 					"priority": 9,
-					"action": "../leafpad/bin/leafpad result.txt",
+					"action": "./viewtxt.sh result*.txt",
 					"param": "",
 					"exitmenu": false
 				},
                 {
-					"name": "Show log",
+					"name": "View log",
 					"priority": 10,
-					"action": "../leafpad/bin/leafpad log.txt",
+					"action": "./viewtxt.sh log.txt",
 					"param": "",
 					"exitmenu": false
 				},

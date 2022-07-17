@@ -13,17 +13,17 @@ For English users, there is a nice [post](https://www.reddit.com/r/kindle/commen
 
 这里可能会有一些安全隐患（例如可以通过这种方法推送固件升级的文件），所以你最好申请一个名称相对复杂的邮箱并且不要公开。另外，你可以在`config.json`文件中为`root`设置一个更严格的路径，邮件推送的文件将不允许下载到`root`目录及其子目录之外的地方。`root`默认为Kindle USB磁盘根目录（/mnt/us/），请谨慎修改。
 ## 安装和配置
-1. 注册一个新邮箱账户并根据你邮箱服务商的要求在邮箱管理页面开启`IMAP`服务。不同邮箱的方法不同，如outlook邮箱默认开启IMAP服务，无需进一步设置；而新注册的QQ邮箱则需要14天后才能开启IMAP服务
-2. 某些邮箱（例如Yahoo、Google、QQ）需要你创建专门的应用程序密码（授权码），使用常规密码将登录失败，插件将无法正常工作
+1. 注册一个新邮箱账户，很多邮箱限制颇多而配置繁琐，或者垃圾邮件判定严格。建议使用outlook邮箱，可以简化后续设置
+2. 在邮箱管理页面开启`IMAP`服务。不同邮箱的方法不同，如outlook邮箱默认开启，无需进一步设置；而新注册的QQ邮箱则需要14天后才能开启；某些邮箱（例如Yahoo、Google、QQ）还需要你创建专门的应用程序密码（授权码），使用常规密码将登录失败，插件将无法正常工作
 3. `git clone`本项目或前往[发布页面](https://github.com/guo-yong-zhi/MailPush/releases)下载压缩包并解压到你电脑的任意目录下
 4. 在`MailPush/src`文件夹里找到并编辑`config.json`文件
    * 将`user`改为刚刚申请的新邮箱
    * 将`password`改为登录密码（也可能是IMAP授权码）。因为是明文存储，请注意安全
    * 将`host`、`port`改为你邮箱服务商的IMAP host和port。可以参考文末的对照表
    * 其它参数按需修改。`downloaddir`为默认下载路径；`maxage`为下载几天内的邮件；`maxnum`为一次最多下载几封邮件
-5. 通过USB把`MailPush`文件夹拷贝到你Kindle设备根目录下的`extensions`目录中
+5. 通过USB把`MailPush`文件夹复制到你Kindle设备根目录下的`extensions`目录中
 ## 使用方法
-1. 用其它邮箱向你填在`user`的邮箱发邮件
+1. 用其它邮箱向你填在`config.json`中的邮箱发邮件
    * 可以选择添加任意附件
    * 主题或正文都可以为空
    * 主题或正文的一行可以是文件下载链接，多个链接可用空格或`|`隔开，或者分别用`<`和`>`框住，但不支持逗号或分号分隔。当然，多个链接也可以直接写到多行。
@@ -34,10 +34,13 @@ For English users, there is a nice [post](https://www.reddit.com/r/kindle/commen
       > * `saveto abc.pdf | ../def.pdf` #意为前两个文件分别保存到 /mnt/us/documents/downloads/abc.pdf 和 /mnt/us/documents/def.pdf
 2. 在Kindle上打开KUAL，在菜单中找到`MailPush`。点击`Fetch unseen mails`系列可以获取未读，或点击`Fetch the latest mails`系列可以获取最新邮件中的文件。
 ## 故障排除
-1. 运行日志保存在Kindle磁盘根目录下`extensions/MailPush/`中的`log.txt`和`result.txt`，可以通过USB连接电脑查看。如果装有插件`Leafpad`，也可以直接在Kindle上通过KUAL菜单按钮打开查看。
+1. 点击KUAL菜单按钮`View log`和`View results`可以查看运行日志和结果。也可以USB连接Kindle到电脑，查看`extensions/MailPush/`目录中的`log.txt`和`result.txt`
 2. 如果提示`Operation failed`，请先检查`log.txt`中的内容。检查`Python3`的安装状态及`config.json`中的配置（如`password`）
-3. 如果屏幕上方长时间跳动`Fetching...`或提示`Time out`，则可能是网络问题，如果你使用的是国外邮箱服务，可以尝试换用国内的
-4. 如果提示`Operation success`却找不到文件，请先检查`result.txt`中的文件路径，如果没有任何下载则可以点击`Fetch junk mails`系列，尝试在垃圾邮件中寻找
+3. 手动登录你填在`config.json`的邮箱，检查是否收到了邮件，必要时把发送者加入白名单。注意登录查看会使得未读邮件变已读，`Fetch unseen mails`会忽略这些邮件，可以点击`Fetch the latest mails`系列来测试
+4. 设备的时钟错误可能会导致连接失败，请在Kindle设置里为其设置正确的时间
+5. 如果屏幕上方长时间跳动`Fetching...`或提示`Time out`，则可能是网络问题
+6. 如果提示`Operation success`却找不到文件，请先依`result.txt`中的路径检查文件，如果没有任何下载则可以点击`Fetch junk mails`系列，尝试在垃圾邮件中寻找
+7. 如果文件已下载但没有出现在你的图书馆中，请确认文件位于`/mnt/us/documents`及其子目录中，确认文件类型（后缀名）是Kindle支持的格式。确认无误后可以尝试重启设备。
 ## 附：常见邮箱类型和host对照表
 |邮箱类型|host|port|
 |----|----|----|

@@ -43,7 +43,8 @@ if [ 0 -eq `lipc-get-prop com.lab126.cmd wirelessEnable` ]; then
         eips 30 3 "No internet connection        " > /dev/null
     fi
 fi
-
+[ -e "result1.txt" ] && cp "result1.txt" "result2.txt" #backup recent results
+[ -e "result.txt" ] && cp "result.txt" "result1.txt"
 if :; then
     #run the main task from arguments
     "$@"
@@ -70,6 +71,7 @@ while [ -f runningflag ]; do
 	fi
 	sleep 1
 done
+./viewtxt.sh result.txt > /dev/null &
 sleep 6
 kill $(jobs -p) > /dev/null 2>&1
 if [ -f runningflag  ]; then

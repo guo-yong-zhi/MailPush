@@ -28,5 +28,5 @@ for f in files:
 timestr = "-"*10 + datetime.datetime.now().strftime(" %Y-%m-%d %H:%M:%S ") + "-"*10
 print(timestr)
 resultfile.write(timestr)
-resultfile.write("\n")
+resultfile.write("\n\n")
 resultfile.close()
