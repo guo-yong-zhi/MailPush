@@ -21,6 +21,7 @@ def filepath_(fn, path=""):
             bn, ext = p0, ""
         p = "%s(%s)%s"%(bn, n, ext)
         n += 1
+    p = re.sub(r"[:<>|?*]", "_", p.replace("\\", "/"))
     os.makedirs(os.path.dirname(p), exist_ok=True)
     return p
 def filepath(fn, path=""):
