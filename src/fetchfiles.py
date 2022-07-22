@@ -8,7 +8,6 @@ from fetchmails import fetch_mails, get_header, get_files, get_contents
 
 Root = ""
 def filepath_(fn, path=""):
-    fn = re.sub(r"(?u)[^-\w.]", "", fn.strip().replace(" ", "_"))
     p = os.path.join(path, fn)
     if not os.path.abspath(p).startswith(os.path.abspath(Root)):
         print(p, "is out of", Root)
@@ -23,25 +22,37 @@ def filepath_(fn, path=""):
         p = "%s(%s)%s"%(bn, n, ext)
         n += 1
     p = re.sub(r"[:<>|?*]", "_", p.replace("\\", "/"))
-    os.makedirs(os.path.dirname(p), exist_ok=True)
+    dn = os.path.dirname(p)
+    if dn:
+        os.makedirs(dn, exist_ok=True)
     return p
+
+def get_valid_filename(fn):
+    d,b = os.path.split(fn)
+    return os.path.join(d, re.sub(r"[^-\w.]", "", b.strip().replace(" ", "_")))
+
 def filepath(fn, path=""):
-    try:
-        p = filepath_(fn, path)
-        open(p, 'wb').close()
-    except Exception as e:
+    p1 = None
+    e = None
+    valid_fn = get_valid_filename(fn)
+    P = [(fn, path), (valid_fn, path), (valid_fn, Root), ("mailpush_saved_file", Root)]
+    for f_p in P:
         try:
-            print(e)
-            p2 = filepath_("mailpush_saved_file", path)
-            print(p, "is illegal. Try filename:", p2)
-            p = p2
-            open(p, 'wb').close()
-        except Exception as e:
-            print(e)
-            p2 = filepath_("mailpush_saved_file", Root)
-            print(p, "is illegal. Try filename:", p2)
-            p = p2
-    return p
+            if e:
+                print(e)
+            p2 = filepath_(*f_p)
+            if p1:
+                print(p1, "is illegal. Try filename:", p2)
+            p1 = p2
+            open(p1, 'wb').close()
+            return p1
+        except Exception as e_:
+            e = e_
+            pass
+    if e:
+        print(e)
+        raise e
+    raise Exception
 
 def trywget(url, path, fn):
     try:
@@ -109,6 +120,7 @@ def fetch_files(downloaddir="download", root="", **kargs):
     for msg_data in fetch_mails(**kargs):
         print("\n**", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"**")
         msg = email.message_from_bytes(msg_data[0][1])
+        del msg_data
         header = get_header(msg)
         print("*"*25)
         print(
