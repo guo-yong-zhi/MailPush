@@ -8,6 +8,7 @@ from fetchmails import fetch_mails, get_header, get_files, get_contents
 
 Root = ""
 def filepath_(fn, path=""):
+    fn = re.sub(r"(?u)[^-\w.]", "", fn.strip().replace(" ", "_"))
     p = os.path.join(path, fn)
     if not os.path.abspath(p).startswith(os.path.abspath(Root)):
         print(p, "is out of", Root)
