@@ -5,49 +5,49 @@
 			"priority": 0,
 			"items": [
 				{
-					"name": "Fetch unseen mails in recent 2 days",
+					"name": "Fetch unread emails (past 2 days)",
 					"priority": 1,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria UNSEEN --maxage 2 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
 				{
-					"name": "Fetch unseen mails in recent 30 days",
+					"name": "Fetch unread emails (past 30 days)",
 					"priority": 2,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria UNSEEN --maxage 30 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
 				{
-					"name": "Fetch unseen junk mails in recent 2 days",
+					"name": "Fetch unread junk emails (past 2 days)",
 					"priority": 3,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox JUNK --criteria UNSEEN --maxage 2 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch the latest mail in recent 7 days",
+					"name": "Fetch newest email (past 7 days)",
 					"priority": 4,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch the latest 3 mails in recent 30 days",
+					"name": "Fetch 3 newest emails (past 30 days)",
 					"priority": 5,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 30 --maxnum 3 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch the latest 5 mails in recent 60 days",
+					"name": "Fetch 5 newest emails (past 60 days)",
 					"priority": 6,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 60 --maxnum 5 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch the latest junk mail in recent 7 days",
+					"name": "Fetch newest junk email (past 7 days)",
 					"priority": 7,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox JUNK --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
                 {
-					"name": "Fetch mails wifh config.json",
+					"name": "Fetch emails via custom config.json",
 					"priority": 8,
 					"action": "./mailpush.sh python3 -u src/mailpush.py >log.txt 2>&1",
 					"param": ""
@@ -67,9 +67,16 @@
 					"exitmenu": false
 				},
                 {
-					"name": "Kill",
+					"name": "Kill process and exit",
 					"priority": 11,
 					"action": "ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {}",
+					"param": "",
+					"exitmenu": true
+				},
+				{
+					"name": "How to use",
+					"priority": 12,
+					"action": "./viewtxt.sh how_to_use.md",
 					"param": "",
 					"exitmenu": false
 				}
