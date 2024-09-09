@@ -37,12 +37,14 @@ For English users, there is a [fork](https://github.com/Darthagnon/MailPush) and
 2. 在Kindle上打开KUAL，在菜单中找到`MailPush`。点击`Fetch unread emails`可以获取未读，或点击`Fetch newest emails`可以获取最新邮件中的文件。
 ## 故障排除
 1. 点击KUAL菜单按钮`View log`和`View results`可以查看运行日志和结果。也可以USB连接Kindle到电脑，查看`extensions/MailPush/`目录中的`log.txt`和`result.txt`
-2. 如果提示`Operation failed`，请先检查`log.txt`中的内容。检查`Python3`的安装状态及`config.json`中的配置（如`password`）。
-3. 手动登录你填在`config.json`的邮箱，检查是否收到了邮件，必要时把发送者加入白名单。注意登录查看会使得未读邮件变已读，`Fetch unread emails`会忽略这些邮件，可以点击`Fetch latest emails`来测试。
-4. 设备的时钟错误可能会导致连接失败，请在Kindle设置里为其设置正确的时间。
-5. 如果屏幕上方长时间跳动`Fetching...`或提示`Time out`，则可能是网络问题。
-6. 如果提示`Operation success`却找不到文件，请先依`result.txt`中的路径检查文件，如果没有任何下载则可以点击`Fetch junk mails`，尝试在垃圾邮件中寻找。
-7. 如果文件已下载但没有出现在你的图书馆中，请确认文件位于`/mnt/us/documents`及其子目录中，确认文件类型（后缀名）是Kindle支持的格式。确认无误后可以尝试重启设备。
+2. 如果在屏幕顶端看不到任何提示，或者它们显示的位置不合适，可以在电脑上修改文件`COL.txt`中的数字，例如从10改到20可以让显示更靠右。
+3. 如果提示`Operation failed`，请先检查`log.txt`中的内容。检查`Python3`的安装状态及`config.json`中的配置（如`password`）。
+4. 手动登录你填在`config.json`的邮箱，检查是否收到了邮件，必要时把发送者加入白名单。注意登录查看会使得未读邮件变已读，`Fetch unread emails`会忽略这些邮件，可以点击`Fetch newest emails`来测试。
+5. 设备的时钟错误可能会导致连接失败，请在Kindle设置里为其设置正确的时间。
+6. 如果屏幕上方长时间跳动`Fetching...`或提示`Time out`，则可能是网络问题。可以点击`Fetch newest emails`重试。
+7. 如果提示`Operation success`却找不到文件，请先依`result.txt`中的路径检查文件，如果没有任何下载则可以点击`Fetch junk mails`，尝试在垃圾邮件中寻找。
+8. 如果文件已下载但没有出现在你的图书馆中，请确认文件位于`/mnt/us/documents`及其子目录中，确认文件类型（后缀名）是Kindle支持的格式。确认无误后可以尝试重启设备。
+
 ## 附：常见邮箱类型和host对照表
 |邮箱类型|host|port|
 |----|----|----|

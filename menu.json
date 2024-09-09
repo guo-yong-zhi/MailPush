@@ -22,51 +22,51 @@
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox JUNK --criteria UNSEEN --maxage 2 --maxnum 100 >log.txt 2>&1",
 					"param": ""
 				},
-                {
+				{
 					"name": "Fetch newest email (past 7 days)",
 					"priority": 4,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
-                {
+				{
 					"name": "Fetch 3 newest emails (past 30 days)",
 					"priority": 5,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 30 --maxnum 3 >log.txt 2>&1",
 					"param": ""
 				},
-                {
+				{
 					"name": "Fetch 5 newest emails (past 60 days)",
 					"priority": 6,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 60 --maxnum 5 >log.txt 2>&1",
 					"param": ""
 				},
-                {
+				{
 					"name": "Fetch newest junk email (past 7 days)",
 					"priority": 7,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox JUNK --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
-                {
+				{
 					"name": "Fetch emails via custom config.json",
 					"priority": 8,
 					"action": "./mailpush.sh python3 -u src/mailpush.py >log.txt 2>&1",
 					"param": ""
 				},
-                {
+				{
 					"name": "View results",
 					"priority": 9,
 					"action": "./viewtxt.sh result*.txt",
 					"param": "",
 					"exitmenu": false
 				},
-                {
+				{
 					"name": "View log",
 					"priority": 10,
 					"action": "./viewtxt.sh log.txt",
 					"param": "",
 					"exitmenu": false
 				},
-                {
+				{
 					"name": "Kill process and exit",
 					"priority": 11,
 					"action": "ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {}",
