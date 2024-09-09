@@ -1,4 +1,5 @@
 #!/bin/sh
+
 col=$((`cat COL.txt`))
 touch runningflag
 #show status

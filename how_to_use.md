@@ -2,7 +2,7 @@
 2. Use another email address to send an email to the email address you filled in `config.json`.
 	- You can choose to add any attachment (e.g. ebooks, photos).
 	- Both the subject and the body can be empty.
-    - Both the subject and the body can contain multiple lines.
+	- Both the subject and the body can contain multiple lines.
 	- A line in the subject or body can be a file download link, or multiple. Multiple links are separated by spaces, pipes `|`, or enclosed by inequalities `<` and `>` respectively. Commas `,` and semicolons `;` are not supported.
 	- A line in the subject or body can start with the `saveto` keyword to specify the path or file name downloaded to Kindle. Multiple file names are separated by pipes `|`, or enclosed by inequalities `<` and `>` respectively. Spaces, commas `,` and semicolons `;` are not supported. The default path is configured by the parameter `downloaddir` in `config.json`, which defaults to `/mnt/us/documents/downloads`. Examples:
 		> - `saveto abc.pdf`              # means the first file is saved to /mnt/us/documents/downloads/abc.pdf
