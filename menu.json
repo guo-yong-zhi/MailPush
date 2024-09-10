@@ -23,31 +23,31 @@
 					"param": ""
 				},
 				{
-					"name": "Fetch newest email (past 7 days)",
+					"name": "Fetch 1 newest email (re-download)",
 					"priority": 4,
-					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
+					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 60 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
 				{
-					"name": "Fetch 3 newest emails (past 30 days)",
+					"name": "Fetch 3 newest emails (re-download)",
 					"priority": 5,
-					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 30 --maxnum 3 >log.txt 2>&1",
+					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 60 --maxnum 3 >log.txt 2>&1",
 					"param": ""
 				},
 				{
-					"name": "Fetch 5 newest emails (past 60 days)",
+					"name": "Fetch 5 newest emails (re-download)",
 					"priority": 6,
 					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox INBOX --criteria ' ' --maxage 60 --maxnum 5 >log.txt 2>&1",
 					"param": ""
 				},
 				{
-					"name": "Fetch newest junk email (past 7 days)",
+					"name": "Fetch 1 newest junk email (re-download)",
 					"priority": 7,
-					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox JUNK --criteria ' ' --maxage 7 --maxnum 1 >log.txt 2>&1",
+					"action": "./mailpush.sh python3 -u src/mailpush.py --mailbox JUNK --criteria ' ' --maxage 60 --maxnum 1 >log.txt 2>&1",
 					"param": ""
 				},
 				{
-					"name": "Fetch emails via custom config.json",
+					"name": "Fetch emails via config.json (custom)",
 					"priority": 8,
 					"action": "./mailpush.sh python3 -u src/mailpush.py >log.txt 2>&1",
 					"param": ""
