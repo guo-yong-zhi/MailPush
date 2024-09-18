@@ -86,4 +86,4 @@ if [ 1 -eq $WIFI_IS_OFF ]; then
     sleep 1
     eips $col 3 "                              " > /dev/null
 fi
-ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {} > /dev/null
+ps aux | grep [m]ailpush | awk '{print $2}' | xargs -i kill {} > /dev/null 2>&1
