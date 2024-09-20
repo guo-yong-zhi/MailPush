@@ -60,15 +60,13 @@ def trywget(url, path, fn):
             "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", url.strip())
         if m:
             url = m.group()
-            return wget(url, path, fn)
+            res = requests.get(url, stream=True)
+        else:
+            return ""
     except Exception as e:
         print(e)
-    return ""
-
-
-def wget(url, path, fn):
+        return ""
     chunk_size = 1024*1024
-    res = requests.get(url, stream=True)
     fn = fn.strip()
     if fn == "" or fn.endswith("/") or fn.endswith("\\"):
         fn = os.path.join(fn, os.path.basename(url))
