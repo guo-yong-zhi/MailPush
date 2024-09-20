@@ -1,7 +1,7 @@
 {
-    "user": "mykindlemail@outlook.com",
+    "user": "mykindlemail@qq.com",
     "password": "abc123",
-    "host": "outlook.office365.com",
+    "host": "imap.qq.com",
     "port": 993,
     "mailbox": "INBOX",
     "criteria": ["UNSEEN"],

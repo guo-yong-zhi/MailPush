@@ -9,5 +9,6 @@
 		> - `saveto books/`               # means the first file is saved to /mnt/us/documents/downloads/books/, the file name remains unchanged
 		> - `saveto /mnt/us/123.epub`     # means the first file is saved to /mnt/us/123.epub
 		> - `saveto abc.pdf | ../def.pdf` # means the first two files are saved to /mnt/us/documents/downloads/abc.pdf and /mnt/us/documents/def.pdf respectively
+	- Other content in the subject or body will be ignored.
 3. Click the `Fetch unread emails` button to download all unread emails, or click the `Fetch newest emails` button to get the files in the latest mail. Other email download modes are also provided.
 4. After selecting a download mode, wait a little. The books will download.
