@@ -20,12 +20,26 @@ def fetch_mails(host,
     connection = imaplib.IMAP4_SSL(host, port)
     connection.login(user, password)
     print("*", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S,"), "login")
-    typ, data = connection.select(mailbox)
-    num_msgs = int(data[0])
-    print('{}, There are {} emails in {}'.format(typ, num_msgs, mailbox))
-    sincedate = (datetime.date.today() -
-                 datetime.timedelta(maxage)).strftime("%d-%b-%Y")
-    typ, data = connection.search(None, 'SINCE', sincedate, *criteria)
+    for attempt in range(2):
+        try:
+            typ, data = connection.select(mailbox)
+            num_msgs = int(data[0])
+            print('{}, There are {} emails in {}'.format(typ, num_msgs, mailbox))
+            sincedate = (datetime.date.today() -
+                        datetime.timedelta(maxage)).strftime("%d-%b-%Y")
+            typ, data = connection.search(None, 'SINCE', sincedate, *criteria)
+        except Exception as e: # IMAP4 ID extension
+            if attempt == 1:
+                raise e
+            print("Try IMAP4 ID extension")
+            imaplib.Commands['ID'] = ('AUTH')
+            args = ("name",user,"contact",user,"version","1.0.0","vendor","MailPush")
+            typ, data = connection._simple_command('ID', '("' + '" "'.join(args) + '")')
+            print('{}, {}'.format(typ, data))
+            typ, data = connection._untagged_response(typ, data, 'ID')
+            print('{}, {}'.format(typ, data))
+        else:
+            break
     ids = data[0].split()
     print("{}, There are {} {} emails in the past {} days".format(
         typ, len(ids), " ".join(criteria), maxage))
